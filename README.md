@@ -2,6 +2,10 @@
 
 Simple NodeJS Multi-Target Application example of using the jobscheduler service in CF and XSA
 
+[Docs for CF](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html)
+
+[Docs for XSA](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/b2aff171211c4a4dbcbb55a7ebf98470.html?q=job%20scheduler)
+
 ## Description
 
 This repository contains a complete project that is an example of using the jobscheduler service to trigger recurring tasks on a specific schedule.
@@ -14,7 +18,7 @@ This repository contains a complete project that is an example of using the jobs
 
 ## Download and Installation
 
- - Clone this repo [https://github.tools.sap/partnereng/job-scheduler](https://github.tools.sap/partnereng/job-scheduler) into your local system or IDE of choice.
+ - Clone this repo [https://github.com/SAP-samples/mta-job-scheduler](https://github.com/SAP-samples/mta-job-scheduler) into your local system or IDE of choice.
  
 ## Limitations
 
