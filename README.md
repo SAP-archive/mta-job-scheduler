@@ -1,14 +1,21 @@
 # Job-Scheduler
 
-Simple NodeJS Multi-Target Application example of using the jobscheduler service in CF and XSA
+Simple NodeJS Multi-Target Application(MTA) example of using the jobscheduler service in CF and XSA.
+
+
+## Description
+
+This repository contains a complete project Multi-Target Application(MTA) that is an example of using the jobscheduler service to manage long running tasks or trigger recurring tasks on a specific schedule.
+
+While much of today's application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context, issues start to arise when the time taken to perform the processing gets increasingly longer.  In these longer running requests, the client(browser, mobile app, etc) will often time out assuming that the connection has been dropped and will no longer wait for the response.  In these cases it is a better design pattern to trigger a job immediately receive an identifier to that job that can be used on subsequent queries of that job's progress.
+
+The same mechanism is used to schedule the execution of unattended jobs that are triggered at a particular time or on a recurring schedule.
+
 
 [Docs for CF](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html)
 
 [Docs for XSA](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/b2aff171211c4a4dbcbb55a7ebf98470.html?q=job%20scheduler)
 
-## Description
-
-This repository contains a complete project that is an example of using the jobscheduler service to trigger recurring tasks on a specific schedule.
 
 ## Requirements
 
@@ -18,7 +25,7 @@ This repository contains a complete project that is an example of using the jobs
 
 ## Download and Installation
 
- - Clone this repo [https://github.com/SAP-samples/mta-job-scheduler](https://github.com/SAP-samples/mta-job-scheduler) into your local system or IDE of choice.
+ - Clone this repo [https://github.com/SAP-samples/mta-job-scheduler.git](https://github.com/SAP-samples/mta-job-scheduler.git) into your local system or IDE of choice.
  
 ## Limitations
 
