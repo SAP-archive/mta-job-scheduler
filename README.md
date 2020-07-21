@@ -9,7 +9,7 @@ This repository contains a complete project Multi-Target Application(MTA) that i
 
 While much of today's application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context, issues start to arise when the time taken to perform the processing gets increasingly longer.  In these longer running requests, the client(browser, mobile app, etc) will often time out assuming that the connection has been dropped and will no longer wait for the response.  In these cases it is a better design pattern to trigger a job immediately receive an identifier to that job that can be used on subsequent queries of that job's progress.
 
-The same mechanism is used to schedule the execution of unattended jobs that are triggered at a particular time or on a recurring schedule.
+The same mechanism is used to schedule the execution of unattended jobs that are triggered at a particular time in the future or on a recurring schedule.
 
 
 [Docs for CF](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html)
