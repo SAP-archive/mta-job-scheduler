@@ -1,0 +1,152 @@
+## Generated mta.yaml based on yo sap-partner-eng version 0.2.19
+## appName = job-sched
+## language=nodejs; multiTenant=false
+## approuter=job-sched-app
+_schema-version: '3.1'
+ID: job-sched
+version: 0.0.1
+description: Simple NodeJS example of using the jobscheduler service in SAP Cloud Foundry and HANA XSA.
+parameters:
+   enable-parallel-deployments: true
+  
+  
+#build-parameters:
+#  before-all:
+#   - builder: custom
+#     commands:
+#      - npm install
+#      - npx cds build
+
+
+modules:
+
+### New Modules Here ###
+
+# cf push job-sched-srv -p srv -n subdomain-space-job-sched-srv -d cfapps.us10.hana.ondemand.com -k 512M -m 256M
+ - name: job-sched-srv
+   type: nodejs
+   path: srv
+   build-parameters:
+      ignore: ["package-lock.json", "node_modules/"]
+      # Suppress the calling of npm install by listing no commands
+      builder: custom
+      commands: []
+   parameters:
+      memory: 512M
+      disk-quota: 512M
+      #host: ${org}-${space}-job-sched-srv
+      #domain: cfapps.us10.hana.ondemand.com
+   properties:
+      # Find this by clicking "Webhook Data" in the "General Information" section of your job Secret:
+      CICD_UI: 'https://conciletime.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
+      WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-c112-4862-9c30-254a18b59a55'
+      SECRET_TOKEN: '234ed9950a29c0aa969756550b73887938e0e25454b576d08af322deb73efddf'
+      NODE_DEBUG: 'scheduler'
+   provides:
+    - name: job-sched_srv_api
+      properties:
+         url: ${default-url}
+   requires:
+    - name: job-sched-uaa
+    - name: job-sched-sch
+
+# cf push job-sched-app -p app -n subdomain-space-job-sched-app -d cfapps.us10.hana.ondemand.com -k 256M -m 256M
+ - name: job-sched-app
+   type: html5
+   path: app
+   build-parameters:
+      ignore: ["package-lock.json", "node_modules/"]
+      # Suppress the calling of npm install by listing no commands
+      builder: custom
+      commands: []
+   parameters:
+      #host: ${org}-${space}-job-sched-app
+      #domain: cfapps.us10.hana.ondemand.com
+      #routes:
+      #  - route: job-sched-app-${space}-${app-name}.${default-domain}
+      disk-quota: 256M
+      memory: 256M
+   provides:
+    - name: Router_api
+      properties:
+         url: ${default-url}
+         application: ${app-name}
+   properties:
+      TENANT_HOST_PATTERN: '^(.*)-${space}-${app-name}.cfapps.us10.hana.ondemand.com'
+# CDS-MTX
+   requires:
+   # cf bind-service job-sched-app JOB-SCHED_UAA
+    - name: job-sched-uaa
+   ### New Destinations Here ###
+    - name: job-sched_srv_api
+      group: destinations
+      properties:
+         name: job-sched_srv_be
+         url: ~{url}
+         forwardAuthToken: true
+
+resources:
+
+# cf create-service xsuaa application JOB-SCHED_UAA -c ./cds-security.json
+ - name: job-sched-uaa
+   type: org.cloudfoundry.managed-service
+   requires:
+    - name: Router_api
+   properties:
+      XSAPPNAME: ${xsuaa-app}
+   parameters:
+      # Re-run the following command after changing any @(requires: []) definitions in srv/*.cds
+      # Run this from the root of the project and uncomment the path:
+      # cds compile srv/ --to xsuaa,json > cds-security.json
+      #path: ./cds-security.json
+      # The combination of path: and config.scopes: Doesn't seem work.  Use one or the other.
+      # cds compile srv/ --to xsuaa,yaml and make sure the config: below matches
+      #path: ./cds-security.json
+      #path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+      service-name: JOB-SCHED_UAA
+      xsuaa-app: ${space}-~{Router_api/application}
+      # Define within config what used to be in the xs-security.json file.  path: now pulls in cds scopes/role templates
+      # Convert with https://www.json2yaml.com/
+      # https://github.wdf.sap.corp/pages/cap/guides/authorization#role-assignments-with-xsuaa
+      config:
+         xsappname: ${xsuaa-app}
+         ### tenant-mode
+         tenant-mode: dedicated
+         description: Security profile of the job-sched application
+         scopes:
+          - name: "$XSAPPNAME.Callback"
+            description: With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.
+            grant-as-authority-to-apps: 
+             - "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+          - name: "$XSAPPNAME.Administrator"
+            description: Administrate the application
+          - name: "$XSAPPNAME.User"
+            description: Use the application
+         role-templates:
+          - name: Administrator
+            description: Administrator
+            scope-references:
+             - "$XSAPPNAME.Administrator"
+          - name: User
+            description: User
+            scope-references:
+             - "$XSAPPNAME.User"
+         oauth2-configuration:
+            redirect-uris: 
+             - "http*://*.cfapps.us10.hana.ondemand.com/**"
+
+#com.sap.xs.auditlog auditlog standard
+ - name: job-sched-sch
+   type: org.cloudfoundry.managed-service
+   parameters:
+      service: jobscheduler
+      service-plan: lite
+      service-name: JOB-SCHED_SCH
+      config:
+         enable-xsuaa-support: true
+
+
+### New Resources Here ###
+

@@ -1,0 +1,31 @@
+{
+  "generator-sap-partner-eng": {
+    "package_version": "0.2.19",
+    "project_name": "job-sched",
+    "app_name": "job-sched",
+    "app_desc": "Simple NodeJS example of using the jobscheduler service in SAP Cloud Foundry and HANA XSA.",
+    "router_name": "job-sched-app",
+    "domain_name": "cfapps.us10.hana.ondemand.com",
+    "router_path": "app",
+    "database_path": "db",
+    "services_path": "srv",
+    "uaa_res_name": "job-sched-uaa",
+    "uaa_svc_name": "JOB-SCHED_UAA",
+    "module_names": [
+      "job-sched-srv"
+    ],
+    "module_paths": [
+      "srv"
+    ],
+    "module_apis": [
+      "job-sched_srv_api"
+    ],
+    "module_bes": [
+      "job-sched_srv_be"
+    ],
+    "module_routes": [
+      "job-sched_srv_route"
+    ],
+    "multitenant_enabled": false
+  }
+}

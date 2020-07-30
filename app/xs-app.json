@@ -1,0 +1,27 @@
+{
+  "welcomeFile": "index.html",
+  "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "(util/)(.*)",
+      "destination": "job-sched_srv_be",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+     {
+      "source": "(sched/)(.*)",
+      "destination": "job-sched_srv_be",
+      "csrfProtection": true,
+      "authenticationType": "xsuaa"
+    },
+    {
+      "localDir": "resources",
+      "source": "^/(.*)",
+      "authenticationType": "none"
+    }
+  ]
+}
+

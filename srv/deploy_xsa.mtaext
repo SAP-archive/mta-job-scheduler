@@ -1,0 +1,20 @@
+ID: job-sched.xsa_deploy
+extends: job-sched
+_schema-version: '3.1'
+
+modules:
+
+ - name: job-sched-srv
+   parameters:
+      memory: 256M
+
+ - name: job-sched-app
+   parameters:
+      memory: 256M
+
+
+resources:
+
+ - name: job-sched-uaa
+   parameters:
+      service-plan: default

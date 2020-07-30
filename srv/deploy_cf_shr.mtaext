@@ -1,0 +1,23 @@
+ID: job-sched.cf_deploy
+extends: job-sched
+_schema-version: '3.1'
+
+modules:
+
+ - name: job-sched-srv
+   parameters:
+      memory: 256M
+
+ - name: job-sched-app
+   parameters:
+      memory: 256M
+   properties:
+      TENANT_HOST_PATTERN: '^(.*)-${space}-${app-name}.cfapps.us10.hana.ondemand.com'
+
+resources:
+
+ - name: job-sched-uaa
+   parameters:
+      service-plan: application
+      config:
+         tenant-mode: shared
