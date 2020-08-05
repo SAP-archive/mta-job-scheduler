@@ -71,9 +71,21 @@ cf set-env job-sched-srv SECRET_TOKEN '234ed9950replacewithyoursecrettoken08af32
 cf restage job-sched-srv
 ```
 
+## Project Structure
+
+File / Folder | Purpose
+---------|----------
+`README.md` | this getting started guide
+`COMMANDS.md` | commands for building/deploying 
+`app/` | content for UI frontends go here
+`srv/` | your service module code goes here
+`mta.yaml` | project structure and relationships
+`deploy_*.mtaext` | MTA Extension files for deploying
+`package.json` | project metadata and configuration
+
 ## Instructions
 
-Replace occurances of "us10.hana.demand,com" with the landscape region variant for your account. 
+Replace occurances of **us10.hana.demand,com** with the landscape region variant for your account. 
 
 See the [COMMANDS](COMMANDS.md) file for comands for building and deploying the project.
 
@@ -90,37 +102,33 @@ If you want to enable multitenant support, follow these steps.
 
  - Not all features and techniques may be demonstrable with Cloud Foundry trial accounts.
 
+
 ## Known Issues
 
 This example project contains no known issues.
 
+
 ## How to obtain support
 
-This project is provided "as-is" with no expectation for major changes or support.  However, you may attempt to contact the repo owner with questions.
+[Create an issue](https://github.com/SAP-samples/mta-job-scheduler/issues) in this repository if you find a bug or have questions about the content.
+ 
+For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html?additionalTagId=723714486627645412834578565527550).
+ 
 
 ## Contributing
 
-Contributions are currently not being accepted since the project is provided on an "as-is" basis.  You may fork the repo and modify it and create a pull request for consideration.
+Unlike Open Source Projects, Sample Code will typically not be updated, and end users will not contribute to the code.  You may fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
+
 
 ## To-Do (upcoming changes)
 
 Tools used throughout the development of this project are evolving and my change over time.  This may result in discrepencies in the exact procedures or screen-clips in the accompanying blog posts.  All efforts will be made to update the content in order to keep pace with the toolsing, but cannot be guarenteed.
 
+
 ## Learn more...
 
 Learn more in the help documentation at [Job Scheduler REST APIs](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html)
 
-## Project Structure
-
-File / Folder | Purpose
----------|----------
-`README.md` | this getting started guide
-`COMMANDS.md` | commands for building/deploying 
-`app/` | content for UI frontends go here
-`srv/` | your service module code goes here
-`mta.yaml` | project structure and relationships
-`deploy_*.mtaext` | MTA Extension files for deploying
-`package.json` | project metadata and configuration
 
 ## License
  Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE file](LICENSE).
