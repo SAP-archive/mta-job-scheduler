@@ -4,23 +4,23 @@ Multi-Target Application(MTA) sample using the SAP Cloud Platform Job Scheduler 
 
 ## Description
 
-This repository contains a complete Multi-Target Application(MTA) sample project that is an example of using the SAP Cloud Platform Job Scheduler service to schedule the triggering of URLs for future execution, triggering them on a recurring scheduled basis, or to manage the status and completion of long running jobs.  It also contains a specific example how to trigger a build job by simulating a GitHub Webhook.  The job scheduler service leverages the SAP Node.js [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client) library using callbacks(not promises) for calling the async [REST API](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html).
+This repository contains a complete Multi-Target Application(MTA) sample project that is an example of using the SAP Cloud Platform Job Scheduler service to schedule the triggering of URLs for future execution, triggering them on a recurring scheduled basis, or to managing the status and completion of long running jobs.  It also contains a specific example of how to trigger a build job by simulating a [GitHub Webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks).  The job scheduler service leverages the SAP provided Node.js [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client) library using callbacks(not promises) for calling the async [REST API](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html).
 
-Much of today's web application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context.  Often this is done based on user activity or during the processing of an application.  However, it is often desired to submit requests at a future time or on a periodic basis.  This is where delegating the request processing to a job schedluler is useful.  This way the job scheduler makes the request on your behalf.  As long as the requests are processed in a reasonably short time frame (<30 seconds) the HTTP request will remain open.  This sample project focuses primarily on this use case.  
+Much of today's web application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context.  Often this is done based on user activity or during the application processing.  However, it is often desired to submit requests for execution at a future time or on a periodic basis.  This is where delegating the request triggering to a job schedluler is useful.  The job scheduler will makes the request on your behalf at the desired future time.  This sample project focuses primarily on this use case.  
 
-Issues start to arise when the time taken to perform the processing gets increasingly longer.  This can be common when a database must process millions of rows of data or a machine learning algorithm must be trained.  In these longer running cases, the client(browser, mobile app, etc) will often time out assuming that the connection has been dropped and will no longer wait for the response.  In these cases it is a better design pattern to trigger a job immediately and receive an identifier to that job that can be to on subsequent queries to retrieve(or set) that job's progress.
+Issues also start to arise when the time taken to perform the processing gets increasingly longer.  This can be common when a database must process millions of rows of data or a machine learning algorithm must be trained.  In these longer running cases, the client(browser, mobile app, etc) will often time out assuming that the connection has been dropped and will no longer wait for the response.  In these cases it is a better design pattern to trigger a job immediately and receive an identifier to that job that can be to on subsequent queries to retrieve(or set) that job's progress.
 
-It is difficult to anticipate exactly how you should handle long running asynchronus jobs.  [See this article](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10/) for a detailed discussion of some options with Node.js.  
+It is difficult to anticipate exactly how you should handle long running asynchronus jobs.  [See this article](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10/) for a detailed discussion of some options using Node.js.  
 
 The long running job example is included in a branch of the repository called [nodejs-wrk](/tree/nodejs-wrk).
 
-Note:  Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser.  You must watch the logs of the srv(or wrk) module to see the when they ran and what the results of their running were.  Do this with the following cf command.
+**Note:**  Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser.  You must watch the logs of the srv(or wrk) module to see the when they ran and what the results of their running were.  When using the SAP Cloud Platform, use the following cf command.
 
 ```
 cf logs job-sched-srv
 ```
 
-A simple job URL is implemented within the app at [/util/date](/util/date) which returns the current server's date and time.
+To simplify testing, a simple job URL is implemented within the app at [/util/date](/util/date) which returns the current server's date and time.
 
 A more complex job URL that simulates the trigginering a GitHub WebHook is found at [/util/trigger](/util/trigger).
 
@@ -63,7 +63,7 @@ modules:
       NODE_DEBUG: 'scheduler'
 ...
 ```
- - OR after deployment, update the environment for the job-sched-srv module.
+ - OR - after deployment, update the environment for the job-sched-srv module.
  ```
 cf set-env job-sched-srv CICD_UI 'https://subdomain.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
 cf set-env job-sched-srv WEBHOOK_URL 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-use-your-account-9c30-254a18b59a55'
@@ -117,7 +117,7 @@ For additional support, [ask a question in SAP Community](https://answers.sap.co
 
 ## Contributing
 
-Unlike Open Source Projects, Sample Code will typically not be updated, and end users will not contribute to the code.  You may fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
+Unlike Open Source Projects, Sample Code will typically not be updated, and end users will not contribute to the code.  You may however, fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
 
 
 ## To-Do (upcoming changes)
