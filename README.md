@@ -1,20 +1,20 @@
 # MTA-Job-Scheduler
 
-Multi-Target Application(MTA) sample using the SAP Cloud Platform Job Scheduler service Node.js library to schedule future, repeating(ex: Webhook), and long running jobs.
+Multi-Target Application (MTA) sample using the SAP Cloud Platform Job Scheduler service Node.js library to schedule future, repeating (ex: Webhook), and long running jobs.
 
 ## Description
 
-This repository contains a complete Multi-Target Application(MTA) sample project that is an example of using the SAP Cloud Platform Job Scheduler service to schedule the triggering of URLs for future execution, triggering them on a recurring scheduled basis, or to managing the status and completion of long running jobs.  It also contains a specific example of how to trigger a build job by simulating a [GitHub Webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks).  The job scheduler service leverages the SAP provided Node.js [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client) library using callbacks(not promises) for calling the async [REST API](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html).
+This repository contains a complete Multi-Target Application (MTA) sample project that is an example of using the SAP Cloud Platform Job Scheduler service to schedule the triggering of URLs for future execution, triggering them on a recurring scheduled basis, or to managing the status and completion of long running jobs. It also contains a specific example of how to trigger a build job by simulating a [GitHub Webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks). The job scheduler service leverages the SAP provided Node.js [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client) library using callbacks (not promises) for calling the async [REST API](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html).
 
-Much of today's web application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context.  Often this is done based on user activity or during the application processing.  However, it is often desired to submit requests for execution at a future time or on a periodic basis.  This is where delegating the request triggering to a job schedluler is useful.  The job scheduler will makes the request on your behalf at the desired future time.  This sample project focuses primarily on this use case.  
+Much of today's web application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context.  Often this is done based on user activity or during the application processing. However, it is often desired to submit requests for execution at a future time or on a periodic basis. This is where delegating the request triggering to a job schedluler is useful. The job scheduler will makes the request on your behalf at the desired future time. This sample project focuses primarily on this use case.  
 
-Issues also start to arise when the time taken to perform the processing gets increasingly longer.  This can be common when a database must process millions of rows of data or a machine learning algorithm must be trained.  In these longer running cases, the client(browser, mobile app, etc) will often time out assuming that the connection has been dropped and will no longer wait for the response.  In these cases it is a better design pattern to trigger a job immediately and receive an identifier to that job that can be to on subsequent queries to retrieve(or set) that job's progress.
+Issues also start to arise when the time taken to perform the processing gets increasingly longer.  This can be common when a database must process millions of rows of data or a machine learning algorithm must be trained.  In these longer running cases, the client(browser, mobile app, etc.) will often time out assuming that the connection has been dropped and will no longer wait for the response.  In these cases it is a better design pattern to trigger a job immediately and receive an identifier to that job that can be to on subsequent queries to retrieve (or set) that job's progress.
 
-It is difficult to anticipate exactly how you should handle long running asynchronus jobs.  [See this article](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10/) for a detailed discussion of some options using Node.js.  
+It is difficult to anticipate exactly how you should handle long running asynchronus jobs. [See this article](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10/) for a detailed discussion of some options using Node.js.  
 
 The long running job example is included in a branch of the repository called [nodejs-wrk](/tree/nodejs-wrk).
 
-**Note:**  Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser.  You must watch the logs of the srv(or wrk) module to see the when they ran and what the results of their running were.  When using the SAP Cloud Platform, use the following cf command.
+**Note:** Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser. You must watch the logs of the srv (or wrk) module to see the when they ran and what the results of their running were. When using the SAP Cloud Platform, use the following cf command.
 
 ```
 cf logs job-sched-srv
@@ -30,7 +30,7 @@ The Node.js library is published in the public [NPMjs.com](https://www.npmjs.com
 
 The [Job Scheduler REST APIs](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html) as used in SAP Cloud Platform are documented under the [API Client Libraries](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/b45e08d672fe4e809672e40fe2f3f76b.html) section.
 
-Documentation link for the [Job Scheduler Services in XS Advanced](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/b2aff171211c4a4dbcbb55a7ebf98470.html?q=job%20scheduler) on HANA on-premise.  See also [Scheduling Jobs in XS Advanced](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/13b037a505f244bd8bd089ef17f28f19.html).
+Documentation link for the [Job Scheduler Services in XS Advanced](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/b2aff171211c4a4dbcbb55a7ebf98470.html?q=job%20scheduler) on HANA on-premise. See also [Scheduling Jobs in XS Advanced](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/13b037a505f244bd8bd089ef17f28f19.html).
 
 
 ## Requirements
@@ -46,7 +46,7 @@ Documentation link for the [Job Scheduler Services in XS Advanced](https://help.
 
  - Clone this repo [https://github.com/SAP-samples/mta-job-scheduler.git](https://github.com/SAP-samples/mta-job-scheduler.git) into your local system or IDE of choice.
 
- - Modify the mta.yaml to specify your specific CI/CD configuration(optional).
+ - Modify the mta.yaml to specify your specific CI/CD configuration (optional).
 
  ```
 ...
@@ -117,12 +117,12 @@ For additional support, [ask a question in SAP Community](https://answers.sap.co
 
 ## Contributing
 
-Unlike Open Source Projects, Sample Code will typically not be updated, and end users will not contribute to the code.  You may however, fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
+Unlike Open Source Projects, Sample Code will typically not be updated, and end users will not contribute to the code. You may however, fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
 
 
 ## To-Do (upcoming changes)
 
-Tools used throughout the development of this project are evolving and my change over time.  This may result in discrepencies in the exact procedures or screen-clips in the accompanying blog posts.  All efforts will be made to update the content in order to keep pace with the toolsing, but cannot be guarenteed.
+Tools used throughout the development of this project are evolving and my change over time. This may result in discrepencies in the exact procedures or screen-clips in the accompanying blog posts. All efforts will be made to update the content in order to keep pace with the toolsing, but cannot be guarenteed.
 
 
 ## Learn more...
@@ -131,4 +131,4 @@ Learn more in the help documentation at [Job Scheduler REST APIs](https://help.s
 
 
 ## License
- Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE file](LICENSE).
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE file](LICENSE).
