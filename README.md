@@ -118,7 +118,7 @@ For additional support, [ask a question in SAP Community](https://answers.sap.co
 ## Contributing
 
 Unlike Open Source Projects, Sample Code will typically not be updated, and end users will typically not contribute to the code. 
-If you find a bug, please [browse the issues](/SAP-samples/mta-job-scheduler/issues) to see if others have already reported it.  If not, please [create an issue](/SAP-samples/mta-job-scheduler/issues/new) with steps to recreate the bug.
+If you find a bug, please [browse the issues](https://github.com/SAP-samples/mta-job-scheduler/issues) to see if others have already reported it.  If not, please [create an issue](https://github.com/SAP-samples/mta-job-scheduler/issues/new) with steps to recreate the bug.
 You may fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
 
 
