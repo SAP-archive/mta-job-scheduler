@@ -136,10 +136,10 @@ app.get("/sched/get_all_jobs", function (req, res) {
 			result.results.forEach((job, idx) => {
 				//console.log("  jobId: " + job.jobId);
 				//console.log("jobName: " + job.name);
-				xtrathings.push({ schedsURL: 'https://' + req.hostname + '/sched/fetch_job_schedules?jobId=' + job.jobId});
-				xtrathings.push({ deleteURL: 'https://' + req.hostname + '/sched/delete_job?jobId=' + job.jobId});
+				xtrathings.push({ schedsURL: 'https://' + req.hostname +  ":" + req.port +'/sched/fetch_job_schedules?jobId=' + job.jobId});
+				xtrathings.push({ deleteURL: 'https://' + req.hostname +  ":" + req.port +'/sched/delete_job?jobId=' + job.jobId});
 			});
-			//console.log('https://' + req.hostname + '/wrk/update_job_run_log?jobId=' + resp_jobId + '&scheduleId=' + resp_scheduleId + '&runId=' + resp_runId + '&success=false&message=NOT%20OK%20finished');
+			//console.log('https://' + req.hostname +  ":" + req.port +'/wrk/update_job_run_log?jobId=' + resp_jobId + '&scheduleId=' + resp_scheduleId + '&runId=' + resp_runId + '&success=false&message=NOT%20OK%20finished');
 			responseJSON['xtra'] = xtrathings;
 			return res.json(responseJSON);
 		}
@@ -161,9 +161,8 @@ app.get("/sched/create_job", function (req, res) {
 	{
 	"name": req.query.name,
 	"description": "recurring job named " + req.query.name,
-	"action": "https://" + req.hostname + "/util/date",
+	"action": "https://" + req.hostname +  ":" + req.port +"/util/date",
 	//"action": "http://" + "localhost" + ":" + "8001" + "/util/date",	// Doesn't work when testing locally against CF
-	//"action": "https://" + "conciletime-dev-job-sched-app.cfapps.us10.hana.ondemand.com" + "/util/date",
 	
 	"active": true,
 	"httpMethod": "GET",
@@ -407,7 +406,7 @@ app.get("/sched/fetch_job_schedules", function (req, res) {
 			result.results.forEach((sched, idx) => {
 				//console.log("  jobId: " + job.jobId);
 				//console.log("jobName: " + job.name);
-				xtrathings.push({ schedsURL: 'https://' + req.hostname + '/sched/get_run_logs?jobId=' + req.query.jobId + '&scheduleId=' + sched.scheduleId});
+				xtrathings.push({ schedsURL: 'https://' + req.hostname +  ":" + req.port +'/sched/get_run_logs?jobId=' + req.query.jobId + '&scheduleId=' + sched.scheduleId});
 			});
 			responseJSON['xtra'] = xtrathings;
 
@@ -743,9 +742,8 @@ app.get("/sched/date_in_1_min", function (req, res) {
 	{
 	"name": req.query.name + "_" + buildDate.getHours() + "_" + buildDate.getMinutes(),
 	"description": "deferred job created by date_in_1_min",
-	"action": "https://" + req.hostname + "/util/date",
+	"action": "https://" + req.hostname +  ":" + req.port +"/util/date",
 	//"action": "http://" + "localhost" + ":" + "8001" + "/util/date",	// Doesn't work when testing locally against CF
-	//"action": "https://" + "conciletime-dev-job-sched-app.cfapps.us10.hana.ondemand.com" + "/util/trigger",
 	
 	"active": true,
 	"httpMethod": "GET",
@@ -789,9 +787,8 @@ app.get("/sched/build_in_1_min", function (req, res) {
 	{
 	"name": req.query.name + "_" + buildDate.getHours() + "_" + buildDate.getMinutes(),
 	"description": "deferred job created by build_in_1_min",
-	"action": "https://" + req.hostname + "/util/trigger",
+	"action": "https://" + req.hostname +  ":" + req.port +"/util/trigger",
 	//"action": "http://" + "localhost" + ":" + "8001" + "/util/date",	// Doesn't work when testing locally against CF
-	//"action": "https://" + "conciletime-dev-job-sched-app.cfapps.us10.hana.ondemand.com" + "/util/trigger",
 	
 	"active": true,
 	"httpMethod": "GET",
@@ -974,9 +971,8 @@ app.get("/util/trigger", async function (req, res) {
 
     var config = {
 		method: 'get',
-		url: 'https://' + req.hostname + '/util/json',
+		url: 'https://' + req.hostname +  ":" + req.port +'/util/json',
 		// Hardcoded for localized testing against CF
-        //url: 'https://' + 'conciletime-dev-job-sched-app.cfapps.us10.hana.ondemand.com' + '/util/json',
 		headers: { 'User-Agent': 'Console app' }
     };
 
@@ -989,10 +985,10 @@ app.get("/util/trigger", async function (req, res) {
 
 		config.method = 'post';
 		//Endpoint defined in this app for localized testing
-		//config.url = 'https://conciletime-dev-job-sched-app.cfapps.us10.hana.ondemand.com/util/trigger'
+		//config.url = 'https://subdomain-dev-job-sched-app.cfapps.us10.hana.ondemand.com/util/trigger'
 
 		//Hardcoded CI/CD service endpoint
-		//'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-c112-4862-9c30-254a18b59a55'
+		//'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
 
 		//Defined in the environment variable WEBHOOK_URL
 		config.url = webhook;
