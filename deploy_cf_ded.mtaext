@@ -22,3 +22,7 @@ resources:
       service-plan: application
       config:
          tenant-mode: dedicated
+
+ - name: job-sched-sch
+   parameters:
+      service-plan: lite

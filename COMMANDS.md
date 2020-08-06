@@ -41,6 +41,15 @@ cf undeploy job-sched -f --delete-services
 ```
 
 #### Commands for Build/Deploy to HANA XSA:
+**Note:** Be sure to configure your XSA to use the public repository resolution.
+```
+echo "Change the local registry to use UPSTREAM registries."
+xs target -s SAP
+xs set-env di-local-npm-registry UPSTREAM_LINK http://registry.npmjs.org/
+xs set-env di-local-npm-registry SAPUPSTREAM_LINK http://registry.npmjs.org/
+xs restage di-local-npm-registry ; xs restart di-local-npm-registry
+xs env di-local-npm-registry | grep UPSTREAM_LINK
+```
 
 ##### Build Command:
 ```

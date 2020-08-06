@@ -27,6 +27,7 @@ modules:
    type: nodejs
    path: srv
    build-parameters:
+      # Don't package the dependencies if you're running into EINTEGRITY issues
       ignore: ["package-lock.json", "node_modules/"]
       # Suppress the calling of npm install by listing no commands
       builder: custom
@@ -55,6 +56,7 @@ modules:
    type: html5
    path: app
    build-parameters:
+      # Don't package the dependencies if you're running into EINTEGRITY issues
       ignore: ["package-lock.json", "node_modules/"]
       # Suppress the calling of npm install by listing no commands
       builder: custom
@@ -104,7 +106,8 @@ resources:
       #path: ./cds-security.json
       #path: ./xs-security.json
       service: xsuaa
-      service-plan: application
+      # Use HANA XSA service-plan in the mta.yaml + override with deploy_cf_???.mtaext
+      service-plan: default
       service-name: JOB-SCHED_UAA
       xsuaa-app: ${space}-~{Router_api/application}
       # Define within config what used to be in the xs-security.json file.  path: now pulls in cds scopes/role templates
@@ -133,16 +136,18 @@ resources:
             description: User
             scope-references:
              - "$XSAPPNAME.User"
-         oauth2-configuration:
-            redirect-uris: 
-             - "http*://*.cfapps.us10.hana.ondemand.com/**"
+         # Uncomment for the Multitenant/Shared tenant-mode and adjust for your platform landscape/custom domain
+         #oauth2-configuration:
+         #   redirect-uris: 
+         #    - "http*://*.cfapps.us10.hana.ondemand.com/**"
 
 #com.sap.xs.auditlog auditlog standard
  - name: job-sched-sch
    type: org.cloudfoundry.managed-service
    parameters:
       service: jobscheduler
-      service-plan: lite
+      # Use HANA XSA service-plan in the mta.yaml + override with deploy_cf_???.mtaext
+      service-plan: default
       service-name: JOB-SCHED_SCH
       config:
          enable-xsuaa-support: true

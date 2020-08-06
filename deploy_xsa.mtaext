@@ -18,3 +18,7 @@ resources:
  - name: job-sched-uaa
    parameters:
       service-plan: default
+
+ - name: job-sched-sch
+   parameters:
+      service-plan: default

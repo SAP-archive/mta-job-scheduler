@@ -21,3 +21,7 @@ resources:
       service-plan: application
       config:
          tenant-mode: shared
+
+ - name: job-sched-sch
+   parameters:
+      service-plan: lite
