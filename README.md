@@ -38,6 +38,8 @@ Documentation link for the [Job Scheduler Services in XS Advanced](https://help.
  - A [SAP Cloud Platorm account](https://account.hana.ondemand.com/) or [SAP Cloud Platfrom Trial account](https://account.hanatrial.ondemand.com/cockpit).
 
  - A grasp of [micro-services architecture](https://12factor.net/) and a sense of [SAP's Cloud Application Programming model](https://cap.cloud.sap/docs/).
+ 
+ - Sufficent application runtime and jobscheduler quota in the space to which you are deploying.
 
  - (Optional) Access to a SAP Cloud Platform Continuous Integration and Delivery subscription for Webhook testing.
 
