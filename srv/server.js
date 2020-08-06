@@ -1104,61 +1104,61 @@ app.post("/util/trigger", function(req, res) {
 	res.status(200).send(retVal);
 });
 
-// ==============================================================================
-// BEGIN MULTITENANT SUPPORT SECTION
-// ==============================================================================
-const cfenv = require('cfenv');
-const appEnv = cfenv.getAppEnv();
+// // ==============================================================================
+// // BEGIN MULTITENANT SUPPORT SECTION
+// // ==============================================================================
+// const cfenv = require('cfenv');
+// const appEnv = cfenv.getAppEnv();
 
-const services = xsenv.getServices({
-	uaa: { tag: 'xsuaa' },
-	registry: { tag: 'SaaS' }
-});
+// const services = xsenv.getServices({
+// 	uaa: { tag: 'xsuaa' },
+// 	registry: { tag: 'SaaS' }
+// });
 
-const passport = require('passport');
-passport.use('JWT', new xssec.JWTStrategy(services.uaa));
-app.use(passport.initialize());
-app.use(passport.authenticate('JWT', {
-	session: false
-}));
+// const passport = require('passport');
+// passport.use('JWT', new xssec.JWTStrategy(services.uaa));
+// app.use(passport.initialize());
+// app.use(passport.authenticate('JWT', {
+// 	session: false
+// }));
 
-// subscribe/onboard a subscriber tenant
-app.get("/mtx/v1/provisioning/tenant/*", function(req, res) {
-	var responseStr = "";
-	responseStr +=
-	"<!DOCTYPE HTML><html><head><title>CAP-MTX</title></head><body><h1>CAP-MTX</h1><h2>WARNING!</h2><br />";
-	responseStr +=
-	"Tenant callback endpoint only allows PUT and DELETE methods to facilitate subscribe/unsubscribe.<br />";
-	responseStr += "</body></html>";
-	console.log("Tenant callback endpoint only allows PUT and DELETE methods to facilitate subscribe/unsubscribe");
-	res.status(200).send(responseStr);
-});
+// // subscribe/onboard a subscriber tenant
+// app.get("/mtx/v1/provisioning/tenant/*", function(req, res) {
+// 	var responseStr = "";
+// 	responseStr +=
+// 	"<!DOCTYPE HTML><html><head><title>CAP-MTX</title></head><body><h1>CAP-MTX</h1><h2>WARNING!</h2><br />";
+// 	responseStr +=
+// 	"Tenant callback endpoint only allows PUT and DELETE methods to facilitate subscribe/unsubscribe.<br />";
+// 	responseStr += "</body></html>";
+// 	console.log("Tenant callback endpoint only allows PUT and DELETE methods to facilitate subscribe/unsubscribe");
+// 	res.status(200).send(responseStr);
+// });
 
-app.get("/admin", function(req, res) {
-	res.status(200).send("");
-});
+// app.get("/admin", function(req, res) {
+// 	res.status(200).send("");
+// });
 
-// subscribe/onboard a subscriber tenant
-app.put("/mtx/v1/provisioning/tenant/*", function(req, res) {
-	let tenantHost = req.body.subscribedSubdomain + '-' + appEnv.app.space_name.toLowerCase().replace(/_/g,'-') + '-' + services.registry.appName.toLowerCase().replace(/_/g,'-') + '-app';
-	let tenantURL = 'https:\/\/' + tenantHost + /\.(.*)/gm.exec(appEnv.app.application_uris[0])[0];
+// // subscribe/onboard a subscriber tenant
+// app.put("/mtx/v1/provisioning/tenant/*", function(req, res) {
+// 	let tenantHost = req.body.subscribedSubdomain + '-' + appEnv.app.space_name.toLowerCase().replace(/_/g,'-') + '-' + services.registry.appName.toLowerCase().replace(/_/g,'-') + '-app';
+// 	let tenantURL = 'https:\/\/' + tenantHost + /\.(.*)/gm.exec(appEnv.app.application_uris[0])[0];
 
-	console.log("==== Tenant URL: " + tenantURL + "====");
-	console.log("==== headers:" + JSON.stringify(req.headers) + "====");
-	console.log("==== body:" + JSON.stringify(req.body) + "====");
+// 	console.log("==== Tenant URL: " + tenantURL + "====");
+// 	console.log("==== headers:" + JSON.stringify(req.headers) + "====");
+// 	console.log("==== body:" + JSON.stringify(req.body) + "====");
 
-	res.status(200).send(tenantURL);
-});
+// 	res.status(200).send(tenantURL);
+// });
 
-// unsubscribe/offboard a subscriber tenant
-app.delete("/mtx/v1/provisioning/tenant/*", function(req, res) {
-	let tenantHost = req.body.subscribedSubdomain + '-' + appEnv.app.space_name.toLowerCase().replace(/_/g,'-') + '-' + services.registry.appName.toLowerCase().replace(/_/g,'-') + '-app';
+// // unsubscribe/offboard a subscriber tenant
+// app.delete("/mtx/v1/provisioning/tenant/*", function(req, res) {
+// 	let tenantHost = req.body.subscribedSubdomain + '-' + appEnv.app.space_name.toLowerCase().replace(/_/g,'-') + '-' + services.registry.appName.toLowerCase().replace(/_/g,'-') + '-app';
 
-	res.status(200).send("");
-});
-// ==============================================================================
-// END MULTITENANT SUPPORT SECTION
-// ==============================================================================
+// 	res.status(200).send("");
+// });
+// // ==============================================================================
+// // END MULTITENANT SUPPORT SECTION
+// // ==============================================================================
   
 
 server.on("request", app);
