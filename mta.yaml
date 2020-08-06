@@ -5,7 +5,7 @@
 _schema-version: '3.1'
 ID: job-sched
 version: 0.0.1
-description: Simple NodeJS example of using the jobscheduler service in SAP Cloud Foundry and HANA XSA.
+description: Multi-Target Application (MTA) sample using the SAP Cloud Platform Job Scheduler service Node.js library to schedule future, repeating (ex: Webhook), and long running jobs.
 parameters:
    enable-parallel-deployments: true
   
