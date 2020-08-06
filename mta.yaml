@@ -50,6 +50,9 @@ modules:
    requires:
     - name: job-sched-uaa
     - name: job-sched-sch
+##// BEGIN MULTITENANT SUPPORT SECTION
+#    - name: job-sched-reg
+##// END MULTITENANT SUPPORT SECTION
 
 # cf push job-sched-app -p app -n subdomain-space-job-sched-app -d cfapps.us10.hana.ondemand.com -k 256M -m 256M
  - name: job-sched-app
@@ -152,6 +155,34 @@ resources:
       config:
          enable-xsuaa-support: true
 
+##// ==============================================================================
+##// BEGIN MULTITENANT SUPPORT SECTION
+##// ==============================================================================
+## Multitenant Registration(using CAP-MTX style url)
+## Manually add route after tenant subscription
+## cf map-route job-sched-app cfapps.us10.hana.ondemand.com --hostname ct-sub0-dev-job-sched-app
+# - name: job-sched-reg
+#   type: org.cloudfoundry.managed-service
+#   requires:
+#    - name: job-sched-uaa
+#   parameters:
+#      service: saas-registry
+#      service-plan: application
+#      service-name: JOB-SCHED_REG
+#      config:
+#         xsappname: ~{job-sched-uaa/XSAPPNAME}
+#         appName: job-sched
+#         displayName: job-sched
+#         description: 'job-sched Multitenant App'
+#         category: 'job-sched Category'
+#         appUrls:
+#            onSubscription: https://${org}-${space}-job-sched-srv.cfapps.us10.hana.ondemand.com/mtx/v1/provisioning/tenant/{tenantId}
+#            onSubscriptionAsync: false
+#            onUnSubscriptionAsync: false
+#            #callbackTimeoutMillis: 300000
+##// ==============================================================================
+##// END MULTITENANT SUPPORT SECTION
+##// ==============================================================================
 
 ### New Resources Here ###
 
