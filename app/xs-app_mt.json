@@ -5,7 +5,14 @@
     "logoutEndpoint": "/do/logout"
   },
   "routes": [
-    {
+   {
+      "source": "(mtx/v1/provisioning/tenant/)(.*)",
+      "destination": "job-sched_srv_be",
+      "httpMethods": ["GET", "PUT", "DELETE"],
+      "csrfProtection": true,
+      "authenticationType": "none"
+   },
+   {
       "source": "(util/)(.*)",
       "destination": "job-sched_srv_be",
       "csrfProtection": false,
