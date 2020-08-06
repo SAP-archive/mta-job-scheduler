@@ -93,7 +93,7 @@ app.get("/sched/links", function (req, res) {
 	responseStr += "<a href=\"/sched/search_schedules?active=true\" target=\"search\">search_schedules?active=true</a> active=true or false : CF not supported<br />";
 	responseStr += "------<br />";
 
-	const cicdui = process.env.CICD_UI;
+	const cicdui = process.env.JOB_SCHED_CICD_UI;
 
 	responseStr += "<a href=\"/sched/date_in_1_min?name=DateAt\" target=\"dateat\">date_in_1_min?name=DateAt</a> Get Date in 1 minute. Monitor with: <strong>cf logs job-sched-srv</strong><br />";
 	responseStr += "<a href=\"/sched/build_in_1_min?name=BuildAt\" target=\"buildat\">build_in_1_min?name=BuildAt</a> Trigger build in 1 minute. ";
@@ -879,9 +879,9 @@ app.get("/util/links", function (req, res) {
 app.get("/util/cicdui", function (req, res) {
 
 	var responseStr = "";
-	const cicdui = process.env.CICD_UI;
-	const webhook = process.env.WEBHOOK_URL;
-	const secret = process.env.SECRET_TOKEN;
+	const cicdui = process.env.JOB_SCHED_CICD_UI;
+	const webhook = process.env.JOB_SCHED_WEBHOOK_URL;
+	const secret = process.env.JOB_SCHED_SECRET_TOKEN;
 
 	responseStr += "<!DOCTYPE HTML><html><head><title>job-sched</title></head><body style=\"font-family: Tahoma, Geneva, sans-serif\"><h1>job-scheduler</h1><br />";
 	responseStr += "Dashboard: <a href=\"" + cicdui + "\" target=\"dashboard\">" + cicdui + "</a><br />";
@@ -918,7 +918,7 @@ app.get("/util/trigger", async function (req, res) {
 	responseStr += "<a href=\"/\">Return to home page.</a><br />";
 	responseStr += "</body></html>";
 
-	// Get the SECRET_TOKEN from the environment
+	// Get the JOB_SCHED_SECRET_TOKEN from the environment
 	// Get the payload.json from the file system
 	// Compose the hash for X-Hub-Signature
 	// See https://developer.github.com/webhooks/securing/
@@ -938,24 +938,24 @@ app.get("/util/trigger", async function (req, res) {
 	//Specify the module properties in your mta.yaml file
 	//properties:
 	//  # Find this by clicking "Webhook Data" in the "General Information" section of your job Secret:
-	//  SECRET_TOKEN: '234ed9950a29c0aa969756550b73887938e0e25454b576d08af322deb73efddf'
-	//  WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-c112-4862-9c30-254a18b59a55',
+	//  JOB_SCHED_SECRET_TOKEN: '234ed9950a29c0aa969756550b73887938e0e25454b576d08af322deb73efddf'
+	//  JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-c112-4862-9c30-254a18b59a55',
 	//  NODE_DEBUG: 'scheduler'
 
 	//When testing locally, add it to your default-env.json file
 	//{
 	//	"PORT": 8001,
-	//	"SECRET_TOKEN": "234ed9950a29c0aa969756550b73887938e0e25454b576d08af322deb73efddf",
-	//	"WEBHOOK_URL": "https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-c112-4862-9c30-254a18b59a55",
+	//	"JOB_SCHED_SECRET_TOKEN": "234ed9950a29c0aa969756550b73887938e0e25454b576d08af322deb73efddf",
+	//	"JOB_SCHED_WEBHOOK_URL": "https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/6e3ca693-c112-4862-9c30-254a18b59a55",
 	//	"VCAP_SERVICES": {
 	//	 "jobscheduler": [ ... ]
 	//	 ...
 	//	 }
 	//}
 
-	const cicdui = process.env.CICD_UI;
-	const secret = process.env.SECRET_TOKEN;
-	const webhook = process.env.WEBHOOK_URL;
+	const cicdui = process.env.JOB_SCHED_CICD_UI;
+	const secret = process.env.JOB_SCHED_SECRET_TOKEN;
+	const webhook = process.env.JOB_SCHED_WEBHOOK_URL;
 
 	const payload = require("./payload");
 
@@ -990,7 +990,7 @@ app.get("/util/trigger", async function (req, res) {
 		//Hardcoded CI/CD service endpoint
 		//'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
 
-		//Defined in the environment variable WEBHOOK_URL
+		//Defined in the environment variable JOB_SCHED_WEBHOOK_URL
 		config.url = webhook;
 	
 	// 	post '/payload' do
@@ -1002,11 +1002,11 @@ app.get("/util/trigger", async function (req, res) {
 	//   end
 	  
 	//   def verify_signature(payload_body)
-	// 	signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
+	// 	signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['JOB_SCHED_SECRET_TOKEN'], payload_body)
 	// 	return halt 500, "Signatures didn't match!" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
 	//   end
 	
-	//signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
+	//signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['JOB_SCHED_SECRET_TOKEN'], payload_body)
 
 	//import crypto from 'crypto';
 	//import { exec } from 'child_process';
@@ -1073,7 +1073,7 @@ app.get("/util/trigger", async function (req, res) {
 app.post("/util/trigger", function(req, res) {
 	let retVal = "You POSTED!";
 	
-	const secret = process.env.SECRET_TOKEN;
+	const secret = process.env.JOB_SCHED_SECRET_TOKEN;
 	
 
 	let bref = typeof req.body.ref === "undefined" ? 'not object' : req.body.ref;

@@ -59,17 +59,17 @@ modules:
 ...
    properties:
       # Find this by clicking "Webhook Data" in the "General Information" section of your job Secret:
-      CICD_UI: 'https://<subdomain>.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
-      WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
-      SECRET_TOKEN: '<your-webhook-secret-token>'
+      JOB_SCHED_CICD_UI: 'https://<subdomain>.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
+      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
+      JOB_SCHED_SECRET_TOKEN: '<your-webhook-secret-token>'
       NODE_DEBUG: 'scheduler'
 ...
 ```
  - OR - after deployment, update the environment for the job-sched-srv module.
  ```
-cf set-env job-sched-srv CICD_UI 'https://subdomain.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
-cf set-env job-sched-srv WEBHOOK_URL 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
-cf set-env job-sched-srv SECRET_TOKEN '<your-webhook-secret-token>'
+cf set-env job-sched-srv JOB_SCHED_CICD_UI 'https://subdomain.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
+cf set-env job-sched-srv JOB_SCHED_WEBHOOK_URL 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
+cf set-env job-sched-srv JOB_SCHED_SECRET_TOKEN '<your-webhook-secret-token>'
 cf restage job-sched-srv
 ```
 
