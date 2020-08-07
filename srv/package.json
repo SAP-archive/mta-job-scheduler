@@ -21,7 +21,8 @@
   "main": "server.js",
   "name": "nodejs",
   "scripts": {
-    "start": "nodemon server.js"
+    "debug": "node --inspect server.js",
+    "start": "node --inspect server.js"
   },
   "version": "1.0.0"
 }
