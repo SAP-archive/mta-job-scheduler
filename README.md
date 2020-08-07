@@ -58,17 +58,20 @@ modules:
    path: srv
 ...
    properties:
+      # Find this with 'cf app job-sched-app' on Cloud Foundry or 'xs app job-sched-app --urls' on XSA
+      JOB_SCHED_APP_URL: 'https://<subdomain>-dev-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
       # Find this by clicking "Webhook Data" in the "General Information" section of your job Secret:
-      JOB_SCHED_CICD_UI: 'https://<subdomain>.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
-      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
+      JOB_SCHED_CICD_UI: 'https://<subdomain>.cicd.cfapps.<landscape>.hana.ondemand.com/ui/index.html'
+      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.<landscape>.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
       JOB_SCHED_SECRET_TOKEN: '<your-webhook-secret-token>'
       NODE_DEBUG: 'scheduler'
 ...
 ```
  - OR - after deployment, update the environment for the job-sched-srv module.
  ```
-cf set-env job-sched-srv JOB_SCHED_CICD_UI 'https://subdomain.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
-cf set-env job-sched-srv JOB_SCHED_WEBHOOK_URL 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
+cf set-env job-sched-srv JOB_SCHED_APP_URL 'https://<subdomain>-dev-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
+cf set-env job-sched-srv JOB_SCHED_CICD_UI 'https://subdomain.cicd.cfapps.<landscape>.hana.ondemand.com/ui/index.html'
+cf set-env job-sched-srv JOB_SCHED_WEBHOOK_URL 'https://cicd-service.cfapps.<landscape>.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
 cf set-env job-sched-srv JOB_SCHED_SECRET_TOKEN '<your-webhook-secret-token>'
 cf restage job-sched-srv
 ```
@@ -87,7 +90,7 @@ File / Folder | Purpose
 
 ## Instructions
 
-Replace occurances of **us10.hana.demand,com** with the landscape region variant for your account. 
+Replace occurances of **<landscape>.hana.demand,com** with the landscape region variant for your account. 
 
 See the [COMMANDS](COMMANDS.md) file for comands for building and deploying the project.
 
