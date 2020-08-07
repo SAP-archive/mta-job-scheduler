@@ -172,8 +172,8 @@ app.get("/sched/create_job", function (req, res) {
 	"httpMethod": "GET",
 	"schedules": [
 		{
-		"cron": "* * * * * * 0",
-		"description": "this schedule runs once an hour on the hour",
+		"cron": "* * * * * 0 0",
+		"description": "this schedule runs once an day at midnight(server time)",
 		"data": {
 			"salesOrderId": "1234"
 		},

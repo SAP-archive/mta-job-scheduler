@@ -134,6 +134,8 @@ Tools used throughout the development of this project are evolving and my change
 
 Learn more in the help documentation at [Job Scheduler REST APIs](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html)
 
+A blog post discussing this code sample can be found on the SAP Community. [SAP Cloud Platform Job Scheduler service, I’ll get to that later.](https://blogs.sap.com/2020/08/07/sap-cloud-platform-job-scheduler-service-ill-get-to-that-later./)
+
 
 ## License
 Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE file](LICENSE).
