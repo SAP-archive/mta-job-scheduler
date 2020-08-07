@@ -115,6 +115,8 @@ app.get("/sched/links", function (req, res) {
 // /sched/get_all_jobs
 app.get("/sched/get_all_jobs", function (req, res) {
 
+	const appurl = process.env.JOB_SCHED_APP_URL;
+
 	var responseJSON = {
 		message: "none",
 	};
@@ -136,10 +138,10 @@ app.get("/sched/get_all_jobs", function (req, res) {
 			result.results.forEach((job, idx) => {
 				//console.log("  jobId: " + job.jobId);
 				//console.log("jobName: " + job.name);
-				xtrathings.push({ schedsURL: 'https://' + req.header.host + '/sched/fetch_job_schedules?jobId=' + job.jobId});
-				xtrathings.push({ deleteURL: 'https://' + req.header.host + '/sched/delete_job?jobId=' + job.jobId});
+				xtrathings.push({ schedsURL: appurl + '/sched/fetch_job_schedules?jobId=' + job.jobId});
+				xtrathings.push({ deleteURL: appurl + '/sched/delete_job?jobId=' + job.jobId});
 			});
-			//console.log('https://' + req.header.host + '/wrk/update_job_run_log?jobId=' + resp_jobId + '&scheduleId=' + resp_scheduleId + '&runId=' + resp_runId + '&success=false&message=NOT%20OK%20finished');
+			//console.log(appurl + '/wrk/update_job_run_log?jobId=' + resp_jobId + '&scheduleId=' + resp_scheduleId + '&runId=' + resp_runId + '&success=false&message=NOT%20OK%20finished');
 			responseJSON['xtra'] = xtrathings;
 			return res.json(responseJSON);
 		}
@@ -153,6 +155,8 @@ app.get("/sched/get_all_jobs", function (req, res) {
 // /sched/create_job?name=getUtilDate
 app.get("/sched/create_job", function (req, res) {
 
+	const appurl = process.env.JOB_SCHED_APP_URL;
+
 	var responseJSON = {
 		message: "none",
 	};
@@ -161,7 +165,7 @@ app.get("/sched/create_job", function (req, res) {
 	{
 	"name": req.query.name,
 	"description": "recurring job named " + req.query.name,
-	"action": "https://" + req.header.host + "/util/date",
+	"action": appurl + "/util/date",
 	//"action": "http://" + "localhost" + ":" + "8001" + "/util/date",	// Doesn't work when testing locally against CF
 	
 	"active": true,
@@ -386,6 +390,8 @@ app.get("/sched/delete_job_schedule", function (req, res) {
 // /sched/fetch_job_schedules?jobId=123
 app.get("/sched/fetch_job_schedules", function (req, res) {
 
+	const appurl = process.env.JOB_SCHED_APP_URL;
+
 	var responseJSON = {
 		message: "none",
 	};
@@ -406,7 +412,7 @@ app.get("/sched/fetch_job_schedules", function (req, res) {
 			result.results.forEach((sched, idx) => {
 				//console.log("  jobId: " + job.jobId);
 				//console.log("jobName: " + job.name);
-				xtrathings.push({ schedsURL: 'https://' + req.header.host + '/sched/get_run_logs?jobId=' + req.query.jobId + '&scheduleId=' + sched.scheduleId});
+				xtrathings.push({ schedsURL: appurl + '/sched/get_run_logs?jobId=' + req.query.jobId + '&scheduleId=' + sched.scheduleId});
 			});
 			responseJSON['xtra'] = xtrathings;
 
@@ -734,6 +740,8 @@ app.get("/sched/search_schedules", function (req, res) {
 // /sched/date_in_1_min?name=DateAt
 app.get("/sched/date_in_1_min", function (req, res) {
 
+	const appurl = process.env.JOB_SCHED_APP_URL;
+
 	var responseJSON = {
 		message: "none",
 	};
@@ -742,7 +750,7 @@ app.get("/sched/date_in_1_min", function (req, res) {
 	{
 	"name": req.query.name + "_" + buildDate.getHours() + "_" + buildDate.getMinutes(),
 	"description": "deferred job created by date_in_1_min",
-	"action": "https://" + req.header.host + "/util/date",
+	"action": appurl + "/util/date",
 	//"action": "http://" + "localhost" + ":" + "8001" + "/util/date",	// Doesn't work when testing locally against CF
 	
 	"active": true,
@@ -779,6 +787,8 @@ app.get("/sched/date_in_1_min", function (req, res) {
 // /sched/build_in_1_min?name=BuildAt
 app.get("/sched/build_in_1_min", function (req, res) {
 
+	const appurl = process.env.JOB_SCHED_APP_URL;
+
 	var responseJSON = {
 		message: "none",
 	};
@@ -787,8 +797,7 @@ app.get("/sched/build_in_1_min", function (req, res) {
 	{
 	"name": req.query.name + "_" + buildDate.getHours() + "_" + buildDate.getMinutes(),
 	"description": "deferred job created by build_in_1_min",
-	"action": "https://" + req.header.host + "/util/trigger",
-	//"action": "http://" + "localhost" + ":" + "8001" + "/util/date",	// Doesn't work when testing locally against CF
+	"action": appurl + "/util/trigger",
 	
 	"active": true,
 	"httpMethod": "GET",
@@ -879,6 +888,7 @@ app.get("/util/links", function (req, res) {
 app.get("/util/cicdui", function (req, res) {
 
 	var responseStr = "";
+	const appurl = process.env.JOB_SCHED_APP_URL;
 	const cicdui = process.env.JOB_SCHED_CICD_UI;
 	const webhook = process.env.JOB_SCHED_WEBHOOK_URL;
 	const secret = process.env.JOB_SCHED_SECRET_TOKEN;
@@ -909,6 +919,8 @@ app.get("/util/json", function (req, res) {
 
 
 app.get("/util/trigger", async function (req, res) {
+
+	const appurl = process.env.JOB_SCHED_APP_URL;
 
 	var responseStr = "";
 	responseStr += "<!DOCTYPE HTML><html><head><title>util/trigger</title></head><body style=\"font-family: Tahoma, Geneva, sans-serif\"><h1>util/trigger</h1><br />";
@@ -971,7 +983,7 @@ app.get("/util/trigger", async function (req, res) {
 
     var config = {
 		method: 'get',
-		url: 'https://' + req.header.host + '/util/json',
+		url: appurl + '/util/json',
 		// Hardcoded for localized testing against CF
 		headers: { 'User-Agent': 'Console app' }
     };

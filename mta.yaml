@@ -38,9 +38,11 @@ modules:
       #host: ${org}-${space}-job-sched-srv
       #domain: cfapps.us10.hana.ondemand.com
    properties:
+      # Find this with 'cf app job-sched-app' on Cloud Foundry or 'xs app job-sched-app --urls' on XSA
+      JOB_SCHED_APP_URL: '<subdomain>-<space>-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
       # Find this by clicking "Webhook Data" in the "General Information" section of your job Secret:
-      JOB_SCHED_CICD_UI: 'https://<subdomain>.cicd.cfapps.us10.hana.ondemand.com/ui/index.html'
-      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.us10.hana.ondemand.com/v1/github_events/<your-account-guid>'
+      JOB_SCHED_CICD_UI: 'https://<subdomain>.cicd.cfapps.<landscape>.hana.ondemand.com/ui/index.html'
+      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.<landscape>.hana.ondemand.com/v1/github_events/<your-account-guid>'
       JOB_SCHED_SECRET_TOKEN: '<your-webhook-secret-token>'
       NODE_DEBUG: 'scheduler'
    provides:
