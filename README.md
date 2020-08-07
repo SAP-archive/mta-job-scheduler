@@ -117,11 +117,9 @@ This example project contains no known issues.
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html?additionalTagId=723714486627645412834578565527550).
  
 
-## Contributing
+## Reporting Problems and Contributing Enhancements
 
-Unlike Open Source Projects, Sample Code will typically not be updated, and end users will typically not contribute to the code. 
-If you find a bug, please [browse the issues](https://github.com/SAP-samples/mta-job-scheduler/issues) to see if others have already reported it.  If not, please [create an issue](https://github.com/SAP-samples/mta-job-scheduler/issues/new) with steps to recreate the bug.
-You may fork the repo, modify it to your needs, and create a pull request for consideration by the repo owner.
+An SAP Code Sample such as this is open software but is not quite a typical full-blown open source project. If you come across a problem, we’d encourage you to check the project’s [issue tracker](https://github.com/SAP-samples/mta-job-scheduler/issues) and to [file a new issue](https://github.com/SAP-samples/mta-job-scheduler/issues/new) if needed. If you are especially passionate about something you’d like to improve, you are welcome to fork the repository and submit improvements or changes as a pull request.
 
 
 ## To-Do (upcoming changes)
