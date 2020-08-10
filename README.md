@@ -96,11 +96,18 @@ See the [COMMANDS](COMMANDS.md) file for comands for building and deploying the 
 
 If you want to enable multitenant support, follow these steps.
 
-- Uncomment the  **- name: job-sched-reg** resource section of the mta.yaml file marked by **MULTITENANT SUPPORT SECTION**
-- Uncomment the requires: **- name: job-sched-reg** item in the mta.yaml file marked by **MULTITENANT SUPPORT SECTION**
-- Uncomment the section of the srv/server.js file marked by **MULTITENANT SUPPORT SECTION**
-- Replace the contents of the app/xs-app.json file with that of app/xs-app_mt.json
-- Undeploy/Build/Redeploy the entire app
+- Uncomment the  **- name: job-sched-reg** resource section of the **mta.yaml** file marked by **MULTITENANT SUPPORT SECTION**
+- Uncomment the requires: **- name: job-sched-reg** item in the **mta.yaml** file marked by **MULTITENANT SUPPORT SECTION**
+- If using a custom domain, uncomment and adjust the **oauth2-configuration** section in the xsuaa resource config
+- Uncomment the section of the **srv/server.js** file marked by **MULTITENANT SUPPORT SECTION**
+- Replace the contents of the **app/xs-app.json** file with that of **app/xs-app_mt.json**
+- Undeploy/Build/Redeploy the entire app with -e deploy_cf_shr.mtaext (Shared Mode)
+
+```
+cf undeploy job-sched -f --delete-services
+mbt build -p=cf -t=mta_archives --mtar=job-sched-cf.mtar
+cf deploy mta_archives/job-sched-cf.mtar -f -e deploy_cf_shr.mtaext
+```
 
 
 ## Limitations
