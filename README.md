@@ -94,7 +94,7 @@ Replace occurances of **<landscape>.hana.demand,com** with the landscape region 
 
 See the [COMMANDS](COMMANDS.md) file for comands for building and deploying the project.
 
-If you want to enable multitenant support, follow these steps.
+If you want to enable multitenant support, follow these steps(or checkout the [multitenant branch](https://github.com/SAP-samples/mta-job-scheduler/tree/multitenant)).
 
 - Uncomment the  **- name: job-sched-reg** resource section of the **mta.yaml** file marked by **MULTITENANT SUPPORT SECTION**
 - Uncomment the requires: **- name: job-sched-reg** item in the **mta.yaml** file marked by **MULTITENANT SUPPORT SECTION**
