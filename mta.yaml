@@ -22,6 +22,24 @@ modules:
 
 ### New Modules Here ###
 
+# cf push job-sched-wrk -p wrk -n job-sched-wrk -d cfapps.us10.hana.ondemand.com -k 512M -m 256M
+ - name: job-sched-wrk
+   type: nodejs
+   path: wrk
+   build-parameters:
+      ignore: ["node_modules/"]
+   parameters:
+      memory: 256M
+      disk-quota: 512M
+      #host: ${org}-${space}-job-sched-wrk
+      #domain: cfapps.us10.hana.ondemand.com
+   provides:
+    - name: job-sched_wrk_api
+      properties:
+         url: ${default-url}
+   requires:
+    - name: job-sched-uaa
+
 # cf push job-sched-srv -p srv -n subdomain-space-job-sched-srv -d cfapps.us10.hana.ondemand.com -k 512M -m 256M
  - name: job-sched-srv
    type: nodejs
@@ -85,6 +103,12 @@ modules:
    # cf bind-service job-sched-app JOB-SCHED_UAA
     - name: job-sched-uaa
    ### New Destinations Here ###
+    - name: job-sched_wrk_api
+      group: destinations
+      properties:
+         name: job-sched_wrk_be
+         url: ~{url}
+         forwardAuthToken: true
     - name: job-sched_srv_api
       group: destinations
       properties:
@@ -187,4 +211,5 @@ resources:
 ##// ==============================================================================
 
 ### New Resources Here ###
+
 

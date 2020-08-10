@@ -6,6 +6,12 @@
   },
   "routes": [
     {
+      "source": "(wrk/)(.*)",
+      "destination": "job-sched_wrk_be",
+      "csrfProtection": true,
+      "authenticationType": "xsuaa"
+    },
+    {
       "source": "(util/)(.*)",
       "destination": "job-sched_srv_be",
       "csrfProtection": false,
@@ -24,4 +30,5 @@
     }
   ]
 }
+
 

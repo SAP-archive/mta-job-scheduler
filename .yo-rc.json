@@ -12,19 +12,24 @@
     "uaa_res_name": "job-sched-uaa",
     "uaa_svc_name": "JOB-SCHED_UAA",
     "module_names": [
-      "job-sched-srv"
+      "job-sched-srv",
+      "job-sched-wrk"
     ],
     "module_paths": [
-      "srv"
+      "srv",
+      "wrk"
     ],
     "module_apis": [
-      "job-sched_srv_api"
+      "job-sched_srv_api",
+      "job-sched_wrk_api"
     ],
     "module_bes": [
-      "job-sched_srv_be"
+      "job-sched_srv_be",
+      "job-sched_wrk_be"
     ],
     "module_routes": [
-      "job-sched_srv_route"
+      "job-sched_srv_route",
+      "wrk"
     ],
     "multitenant_enabled": false
   }
