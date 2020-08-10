@@ -27,18 +27,27 @@ modules:
    type: nodejs
    path: wrk
    build-parameters:
-      ignore: ["node_modules/"]
+      # Don't package the dependencies if you're running into EINTEGRITY issues
+      ignore: ["default-env.json","package-lock.json", "node_modules/"]
+      # Suppress the calling of npm install by listing no commands
+      builder: custom
+      commands: []
    parameters:
       memory: 256M
       disk-quota: 512M
+      instances: 1
       #host: ${org}-${space}-job-sched-wrk
       #domain: cfapps.us10.hana.ondemand.com
+   properties:
+      # Find this with 'cf app job-sched-app' on Cloud Foundry or 'xs app job-sched-app --urls' on XSA
+      JOB_SCHED_APP_URL: '<subdomain>-<space>-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
    provides:
     - name: job-sched_wrk_api
       properties:
          url: ${default-url}
    requires:
     - name: job-sched-uaa
+    - name: job-sched-sch
 
 # cf push job-sched-srv -p srv -n subdomain-space-job-sched-srv -d cfapps.us10.hana.ondemand.com -k 512M -m 256M
  - name: job-sched-srv

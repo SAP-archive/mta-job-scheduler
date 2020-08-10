@@ -53,6 +53,14 @@ Documentation link for the [Job Scheduler Services in XS Advanced](https://help.
  ```
 ...
 modules:
+ - name: job-sched-wrk
+   type: nodejs
+   path: wrk
+...
+   properties:
+      # Find this with 'cf app job-sched-app' on Cloud Foundry or 'xs app job-sched-app --urls' on XSA
+      JOB_SCHED_APP_URL: 'https://<subdomain>-dev-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
+...
  - name: job-sched-srv
    type: nodejs
    path: srv
@@ -67,13 +75,16 @@ modules:
       NODE_DEBUG: 'scheduler'
 ...
 ```
- - OR - after deployment, update the environment for the job-sched-srv module.
+ - OR - after deployment, update the environment for the job-sched-srv and job-sched-wrk modules.
  ```
 cf set-env job-sched-srv JOB_SCHED_APP_URL 'https://<subdomain>-dev-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
 cf set-env job-sched-srv JOB_SCHED_CICD_UI 'https://subdomain.cicd.cfapps.<landscape>.hana.ondemand.com/ui/index.html'
 cf set-env job-sched-srv JOB_SCHED_WEBHOOK_URL 'https://cicd-service.cfapps.<landscape>.hana.ondemand.com/v1/github_events/account/<your-account-guid>'
 cf set-env job-sched-srv JOB_SCHED_SECRET_TOKEN '<your-webhook-secret-token>'
 cf restage job-sched-srv
+
+cf set-env job-sched-wrk JOB_SCHED_APP_URL 'https://<subdomain>-dev-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
+cf restage job-sched-wrk
 ```
 
 ## Project Structure

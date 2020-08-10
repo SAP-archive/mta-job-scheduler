@@ -202,6 +202,8 @@ app.get("/wrk/sleep", function (req, res) {
 // /wrk/test_now
 app.get("/wrk/test_now", function (req, res) {
 
+	const appurl = process.env.JOB_SCHED_APP_URL;
+
 	var responseJSON = {
 		message: "none",
 	};
@@ -209,13 +211,12 @@ app.get("/wrk/test_now", function (req, res) {
 	var instanceNumber = process.env.INSTANCE_INDEX;
 	console.log("hdrs:" + JSON.stringify(req.headers,null,2));
 	var runDate = new Date();
-	var hostname = req.hostname;
-	hostname = "conciletime-dev-job-sched-wrk.cfapps.us10.hana.ondemand.com";
+
 	var myJob = 
 	{
 	"name": jobName + "_" + instanceNumber + "_" + runDate.getHours() + "_" + runDate.getMinutes() + "_" + runDate.getSeconds(),
 	"description": "asynchronous job created by test_now",
-	"action": "https://" + hostname + "/wrk/sleep",
+	"action": appurl + "/wrk/sleep",
 	"active": true,
 	"httpMethod": "GET",
 	"startTime": null,
