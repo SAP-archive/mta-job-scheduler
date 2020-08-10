@@ -12,7 +12,7 @@ Issues also start to arise when the time taken to perform the processing gets in
 
 It is difficult to anticipate exactly how you should handle long running asynchronus jobs. [See this article](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10/) for a detailed discussion of some options using Node.js.  
 
-The long running job example is included in a branch of the repository called [nodejs-wrk](/tree/nodejs-wrk).
+The long running job example is included in a branch of the repository called [nodejs-wrk](https://github.com/SAP-samples/mta-job-scheduler/tree/nodejs-wrk).
 
 **Note:** Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser. You must watch the logs of the srv (or wrk) module to see the when they ran and what the results of their running were. When using the SAP Cloud Platform, use the following cf command.
 
