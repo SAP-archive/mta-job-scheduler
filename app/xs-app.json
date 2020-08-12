@@ -9,7 +9,7 @@
       "source": "(wrk/)(.*)",
       "destination": "job-sched_wrk_be",
       "csrfProtection": true,
-      "authenticationType": "xsuaa"
+      "authenticationType": "none"
     },
     {
       "source": "(util/)(.*)",
