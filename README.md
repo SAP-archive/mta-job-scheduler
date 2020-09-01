@@ -48,7 +48,7 @@ Documentation link for the [Job Scheduler Services in XS Advanced](https://help.
 
  - Clone this repo [https://github.com/SAP-samples/mta-job-scheduler.git](https://github.com/SAP-samples/mta-job-scheduler.git) into your local system or IDE of choice.
 
- - Modify the mta.yaml to specify your specific CI/CD configuration (optional).
+ - Modify the mta.yaml to indicate your APP_URL once it's deployed.  You can additionally set the properties relating to CICD_UI, WEBHOOK_URL, and SECRET_TOKEN if you want to try the scheduled build example (optional).
 
  ```
 ...
@@ -117,7 +117,7 @@ cf deploy mta_archives/job-sched-cf.mtar -f -e deploy_cf_shr.mtaext
 
 ## Known Issues
 
-This example project contains no known issues.
+Multitenancy features to restrict subscriber access to only their jobs needs to be added: See [Multitenancy in Job Scheduler Service](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/464b6130857c4bc98af21a0b528cd35a.html)
 
 
 ## How to obtain support
