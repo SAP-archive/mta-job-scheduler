@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/mta-job-scheduler)](https://api.reuse.software/info/github.com/SAP-samples/mta-job-scheduler)
+
 # MTA-Job-Scheduler
 
 Multi-Target Application (MTA) sample using the SAP Cloud Platform Job Scheduler service Node.js library to schedule future, repeating (ex: Webhook), and long running jobs.
