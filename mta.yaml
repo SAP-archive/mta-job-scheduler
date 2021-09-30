@@ -39,10 +39,10 @@ modules:
       #domain: cfapps.us10.hana.ondemand.com
    properties:
       # Find this with 'cf app job-sched-app' on Cloud Foundry or 'xs app job-sched-app --urls' on XSA
-      JOB_SCHED_APP_URL: '<subdomain>-<space>-job-sched-app.cfapps.<landscape>.hana.ondemand.com'
+      JOB_SCHED_APP_URL: '${org}-${space}-job-sched-app.${default-domain}'
       # Find this by clicking "Webhook Data" in the "General Information" section of your job Secret:
-      JOB_SCHED_CICD_UI: 'https://<subdomain>.cicd.cfapps.<landscape>.hana.ondemand.com/ui/index.html'
-      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.cfapps.<landscape>.hana.ondemand.com/v1/github_events/<your-account-guid>'
+      JOB_SCHED_CICD_UI: 'https://${org}.cicd.${default-domain}/ui/index.html'
+      JOB_SCHED_WEBHOOK_URL: 'https://cicd-service.${default-domain}/v1/github_events/<your-account-guid>'
       JOB_SCHED_SECRET_TOKEN: '<your-webhook-secret-token>'
       NODE_DEBUG: 'scheduler'
    provides:
@@ -79,7 +79,7 @@ modules:
          url: ${default-url}
          application: ${app-name}
    properties:
-      TENANT_HOST_PATTERN: '^(.*)-${space}-${app-name}.cfapps.us10.hana.ondemand.com'
+      TENANT_HOST_PATTERN: '^(.*)-${space}-${app-name}.${default-domain}'
 # CDS-MTX
    requires:
    # cf bind-service job-sched-app JOB-SCHED_UAA
@@ -141,10 +141,21 @@ resources:
             description: User
             scope-references:
              - "$XSAPPNAME.User"
-         # Uncomment for the Multitenant/Shared tenant-mode and adjust for your platform landscape/custom domain
-         #oauth2-configuration:
-         #   redirect-uris: 
-         #    - "http*://*.cfapps.us10.hana.ondemand.com/**"
+         role-collections:
+          - name: Scheduler_Administrator
+            description: Scheduler Administrator
+            role-template-references:
+             - "$XSAPPNAME.Administrator"
+             - "$XSAPPNAME.User"
+          - name: Scheduler_User
+            description: Scheduler User
+            role-template-references:
+             - "$XSAPPNAME.User"
+         oauth2-configuration:
+            redirect-uris: 
+             - "http://localhost:*/**"
+             - "http*://*.*.trial.applicationstudio.cloud.sap/**"
+             - "http*://*.cfapps.*.hana.ondemand.com/**"
 
 #com.sap.xs.auditlog auditlog standard
  - name: job-sched-sch
@@ -152,7 +163,10 @@ resources:
    parameters:
       service: jobscheduler
       # Use HANA XSA service-plan in the mta.yaml + override with deploy_cf_???.mtaext
-      service-plan: default
+      # service-plan: default
+      # service-plan: lite      # minimum schedule frequency of an hour (for non-productive usage).
+      # service-plan: service   # allows 1000 Schedules with minimum schedule frequency of 5 minutes. To be used only for internal consumption.
+      service-plan: standard  # minimum schedule frequency of 5 minutes.
       service-name: JOB-SCHED_SCH
       config:
          enable-xsuaa-support: true

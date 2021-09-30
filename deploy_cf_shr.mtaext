@@ -12,7 +12,7 @@ modules:
    parameters:
       memory: 256M
    properties:
-      TENANT_HOST_PATTERN: '^(.*)-${space}-${app-name}.cfapps.us10.hana.ondemand.com'
+      TENANT_HOST_PATTERN: '^(.*)-${space}-${app-name}.${default-domain}'
 
 resources:
 
@@ -24,4 +24,7 @@ resources:
 
  - name: job-sched-sch
    parameters:
-      service-plan: lite
+      # service-plan: default
+      # service-plan: lite      # minimum schedule frequency of an hour (for non-productive usage).
+      # service-plan: service   # allows 1000 Schedules with minimum schedule frequency of 5 minutes. To be used only for internal consumption.
+      service-plan: standard  # minimum schedule frequency of 5 minutes.
