@@ -2,11 +2,11 @@
 
 # MTA-Job-Scheduler
 
-Multi-Target Application (MTA) sample using the SAP Cloud Platform Job Scheduler service Node.js library to schedule future, repeating (ex: Webhook), and long running jobs.
+Multi-Target Application (MTA) sample using the SAP Business Technology Platform Job Scheduler service Node.js library to schedule future, repeating (ex: Webhook), and long running jobs.
 
 ## Description
 
-This repository contains a complete Multi-Target Application (MTA) sample project that is an example of using the SAP Cloud Platform Job Scheduler service to schedule the triggering of URLs for future execution, triggering them on a recurring scheduled basis, or to managing the status and completion of long running jobs. It also contains a specific example of how to trigger a build job by simulating a [GitHub Webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks). The job scheduler service leverages the SAP provided Node.js [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client) library using callbacks (not promises) for calling the async [REST API](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html).
+This repository contains a complete Multi-Target Application (MTA) sample project that is an example of using the SAP Business Technology Platform Job Scheduler service to schedule the triggering of URLs for future execution, triggering them on a recurring scheduled basis, or to managing the status and completion of long running jobs. It also contains a specific example of how to trigger a build job by simulating a [GitHub Webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks). The job scheduler service leverages the SAP provided Node.js [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client) library using callbacks (not promises) for calling the async [REST API](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html).
 
 Much of today's web application programming is designed around a pattern of receiving requests over HTTP, processing the request, and returning a result within a single connection context.  Often this is done based on user activity or during the application processing. However, it is often desired to submit requests for execution at a future time or on a periodic basis. This is where delegating the request triggering to a job schedluler is useful. The job scheduler will makes the request on your behalf at the desired future time. This sample project focuses primarily on this use case.  
 
@@ -16,7 +16,7 @@ It is difficult to anticipate exactly how you should handle long running asynchr
 
 The long running job example is included in a branch of the repository called [nodejs-wrk](https://github.com/SAP-samples/mta-job-scheduler/tree/nodejs-wrk).
 
-**Note:** Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser. You must watch the logs of the srv (or wrk) module to see the when they ran and what the results of their running were. When using the SAP Cloud Platform, use the following cf command.
+**Note:** Since the nature of using the job scheduler is to trigger jobs that execute in the future or over a long time period, you can't see the evidence of thieir eventual running in a web browser. You must watch the logs of the srv (or wrk) module to see the when they ran and what the results of their running were. When using the SAP Business Technology Platform, use the following cf command.
 
 ```
 cf logs job-sched-srv
@@ -28,9 +28,9 @@ A more complex job URL that simulates the trigginering a GitHub WebHook is found
 
 ## Documentation
 
-The Node.js library is published in the public [NPMjs.com](https://www.npmjs.com/) registry as [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client).  While currently the Readme page focuses on XS Advanced usage, SAP Cloud Platform Cloud Foundry deployment is also supported.
+The Node.js library is published in the public [NPMjs.com](https://www.npmjs.com/) registry as [@sap/jobs-client](https://www.npmjs.com/package/@sap/jobs-client).  While currently the Readme page focuses on XS Advanced usage, SAP Business Technology Platform Cloud Foundry deployment is also supported.
 
-The [Job Scheduler REST APIs](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html) as used in SAP Cloud Platform are documented under the [API Client Libraries](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/b45e08d672fe4e809672e40fe2f3f76b.html) section.
+The [Job Scheduler REST APIs](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html) as used in SAP Business Technology Platform are documented under the [API Client Libraries](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/b45e08d672fe4e809672e40fe2f3f76b.html) section.
 
 Documentation link for the [Job Scheduler Services in XS Advanced](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/b2aff171211c4a4dbcbb55a7ebf98470.html?q=job%20scheduler) on HANA on-premise. See also [Scheduling Jobs in XS Advanced](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/13b037a505f244bd8bd089ef17f28f19.html).
 
@@ -43,7 +43,7 @@ Documentation link for the [Job Scheduler Services in XS Advanced](https://help.
  
  - Sufficent application runtime and jobscheduler quota in the space to which you are deploying.
 
- - (Optional) Access to a SAP Cloud Platform Continuous Integration and Delivery subscription for Webhook testing.
+ - (Optional) Access to a SAP Business Technology Platform Continuous Integration and Delivery subscription for Webhook testing.
 
 
 ## Download and Installation
@@ -143,7 +143,7 @@ Tools used throughout the development of this project are evolving and my change
 
 Learn more in the help documentation at [Job Scheduler REST APIs](https://help.sap.com/viewer/07b57c2f4b944bcd8470d024723a1631/Cloud/en-US/c513d2de49b140d08da694fa263698f8.html)
 
-A blog post discussing this code sample can be found on the SAP Community. [SAP Cloud Platform Job Scheduler service, I’ll get to that later.](https://blogs.sap.com/2020/08/07/sap-cloud-platform-job-scheduler-service-ill-get-to-that-later./)
+A blog post discussing this code sample can be found on the SAP Community. [SAP Business Technology Platform Job Scheduler service, I’ll get to that later.](https://blogs.sap.com/2020/08/07/sap-cloud-platform-job-scheduler-service-ill-get-to-that-later./)
 
 
 ## License
