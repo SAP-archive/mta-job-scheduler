@@ -37,7 +37,7 @@ Documentation link for the [Job Scheduler Services in XS Advanced](https://help.
 
 ## Requirements
 
- - A [SAP Cloud Platorm account](https://account.hana.ondemand.com/) or [SAP Business Technology Platfrom Trial account](https://account.hanatrial.ondemand.com/cockpit).
+ - A [SAP Business Technology Platorm account](https://account.hana.ondemand.com/) or [SAP Business Technology Platfrom Trial account](https://account.hanatrial.ondemand.com/cockpit).
 
  - A grasp of [micro-services architecture](https://12factor.net/) and a sense of [SAP's Cloud Application Programming model](https://cap.cloud.sap/docs/).
  
